@@ -55,20 +55,20 @@ const store = new Vuex.Store({
         count: 0,
         list: [1, 5, 8, 10, 30, 50]
     },
-    getters: {
-        filteredList: state => {
-            return state.list.filter(item => item < 10);
-        },
-        listCount: (state, getters) => {
-            return getters.filteredList.length;
-        }
-    },
     mutations: {
         increment (state, n = 1) {
             state.count += n;
         },
         decrease (state) {
             state.count --;
+        }
+    },
+    getters: {
+        filteredList: state => {
+            return state.list.filter(item => item < 10);
+        },
+        listCount: (state, getters) => {
+            return getters.filteredList.length;
         }
     },
     actions: {

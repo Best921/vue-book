@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div  v-for="name in names">{{name}}</div>
+    <div  v-for="item in obj">{{item}}</div>
+    <hr />
+    <input type="text" v-model.lazy.number="message">
+    <p>{{typeof message}}</p>
+    <hr />
+    <input type="radio" v-model="radioPicked" value="js" id="js">
+    <label for="js">js</label>
+    <input type="radio" v-model="radioPicked" value="html" id="html">
+    <label for="html">html</label>
+    <input type="radio" v-model="radioPicked" value="css" id="css">
+    <label for="css">css</label>
+    <hr />
+    <input type="checkbox" v-model="checkboxPicked" value="js" id="js">
+    <label for="js">js</label>
+    <input type="checkbox" v-model="checkboxPicked" value="html" id="html">
+    <label for="html">html</label>
+    <input type="checkbox" v-model="checkboxPicked" value="css" id="css">
+    <label for="css">css</label>
+    <hr />
+    <select v-model="selectPicked">
+      <option value="html">html</option>
+      <option value="js">js</option>
+      <option value="css">css</option>
+    </select>
+    <hr />
+    <select v-model="multiSelectPicked" multiple>
+      <option value="html">html</option>
+      <option>js</option><!-- 匹配不到value会匹配文本 -->
+      <option value="css">css</option>
+    </select>
+    <hr />
+    <input type="text" v-model="message">
+    <my-component v-if="show" v-model="message" />
+  </div>
+  <script>
+    Vue.component('my-component',{
+      props: ['value'],
+      template: '<div>{{this.value}}</div>',
+      mounted: function(){
+        console.log(this.value);
+        console.log(11);
+        setTimeout(()=>{
+          this.$emit('input',"haha");
+        },1000);
+      },
+      beforeDestroy(){
+        console.log('beforeDestroy');
+      }
+    });
+    var app = new Vue({
+      el: '#app',
+      data: {
+        names: [{age:'21'},'yc'],
+        obj: {sex:'man'},
+        message: '2',
+        radioPicked: 'html',
+        checkboxPicked: ['js','html'],
+        selectPicked: 'js',
+        multiSelectPicked: ['html','js'],
+        show: true
+      },
+      mounted:function(){
+        setTimeout(()=>{
+          //this.obj['height'] = '178';
+          //this.names[0]['weight'] = '70';
+          this.$set(this.names[0],'weight','70');
+          this.$set(this.obj,'height','178');
+          //this.names = ['333'];
+          console.log(this.names);
+          console.log(this.obj);
+          this.show = false;
+        },1000);
+      }
+    });
+  </script>
+</body>
+</html>

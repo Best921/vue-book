@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        show: true
+      },
+      template: '<div v-if="show">22</div>',
+      mounted(){
+        var _self = this;
+        setTimeout(function(){
+          _self.show = false;
+        },2000);
+      },
+      beforeCreate(){
+        console.log('beforeCreated'); 
+        console.log(this.show);
+      },
+      created(){
+        console.log('created'); 
+        console.log(this.show);
+      },
+      beforeDestroy(){
+        console.log('beforeDestroy'); 
+      },
+      destroyed(){
+        console.log('destroyed');
+      }
+    });
+  </script>
+</body>
+</html>
